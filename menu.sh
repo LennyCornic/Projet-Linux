@@ -1,91 +1,88 @@
 #!/bin/bash
 
-menu_principal() {
-    while true; do
-        clear
-        echo "===== SYSTEM CONTROL ====="
-        echo "1) Surveillance système"
-        echo "2) Maintenance"
-        echo "3) Contrôle matériel"
-        echo "4) Énergie"
-        echo "0) Quitter"
-        read -n 1 -p "Choix : " choice
-        echo
-
-        case $choice in
-            1) menu_monitoring ;;
-            2) menu_maintenance ;;
-            3) menu_hardware ;;
-            4) menu_power ;;
-            0) menu_exit ;;
-            *) echo "Choix invalide"; sleep 1 ;;
-        esac
-    done
+pause() {
+  echo ""
+  read -p "Appuyez sur Entree..."
 }
 
 menu_monitoring() {
+  while true; do
     clear
-    echo "1) Disque"
-    echo "2) Mémoire"
-    echo "3) Utilisateurs"
-    echo "4) Processus"
-    read -n 1 -p "Choix : " c
-    echo
+    echo "--- MONITORING ---"
+    echo "1.Disque 2.RAM 3.Users 4.Process r.Retour"
+    read -n 1 c; echo ""
     case $c in
-        1) show_disk_usage ;;
-        2) show_memory_usage ;;
-        3) show_users ;;
-        4) show_processes ;;
+      1) show_disk_usage; pause ;;
+      2) show_memory_usage; pause ;;
+      3) show_users; pause ;;
+      4) show_processes; pause ;;
+      r) return ;;
     esac
-    read -p "Entrée pour continuer..."
+  done
 }
 
 menu_maintenance() {
+  while true; do
     clear
-    echo "1) Sauvegarde"
-    echo "2) Nettoyage /tmp"
-    read -n 1 -p "Choix : " c
-    echo
+    echo "--- MAINTENANCE ---"
+    echo "1.Backup 2.Clean_tmp r.Retour"
+    read -n 1 c; echo ""
     case $c in
-        1) backup_folder ;;
-        2) clean_tmp ;;
+      1) backup_folder; pause ;;
+      2) clean_tmp; pause ;;
+      r) return ;;
     esac
-    read -p "Entrée pour continuer..."
+  done
 }
 
 menu_hardware() {
+  while true; do
     clear
-    echo "1) Volume"
-    echo "2) Mute"
-    echo "3) Luminosité"
-    echo "4) Scan WiFi"
-    read -n 1 -p "Choix : " c
-    echo
+    echo "--- HARDWARE ---"
+    echo "1.Vol 2.Mute 3.Lum 4.Wifi_scan 5.Wifi_co r.Retour"
+    read -n 1 c; echo ""
     case $c in
-        1) set_volume ;;
-        2) mute_volume ;;
-        3) set_brightness ;;
-        4) wifi_scan ;;
+      1) set_volume; pause ;;
+      2) mute_volume; pause ;;
+      3) set_brightness; pause ;;
+      4) wifi_scan; pause ;;
+      5) wifi_connect; pause ;;
+      r) return ;;
     esac
-    read -p "Entrée pour continuer..."
+  done
 }
 
 menu_power() {
+  while true; do
     clear
-    echo "1) Veille"
-    echo "2) Redémarrer"
-    echo "3) Éteindre"
-    read -n 1 -p "Choix : " c
-    echo
+    echo "--- POWER ---"
+    echo "1.Veille 2.Reboot 3.Shutdown r.Retour"
+    read -n 1 c; echo ""
     case $c in
-        1) system_suspend ;;
-        2) system_reboot ;;
-        3) system_shutdown ;;
+      1) system_suspend; pause ;;
+      2) system_reboot; pause ;;
+      3) system_shutdown; pause ;;
+      r) return ;;
     esac
+  done
 }
 
-menu_exit() {
-    echo "Au revoir 👋"
-    exit 0
+menu_principal() {
+  while true; do
+    clear
+    echo "=== MENU PRINCIPAL ==="
+    echo "1. Monitoring"
+    echo "2. Maintenance"
+    echo "3. Hardware"
+    echo "4. Power"
+    echo "q. Quitter"
+    read -n 1 c
+    case $c in
+      1) menu_monitoring ;;
+      2) menu_maintenance ;;
+      3) menu_hardware ;;
+      4) menu_power ;;
+      q) clear; exit 0 ;;
+    esac
+  done
 }
-
