@@ -13,4 +13,3 @@ system_shutdown() {
     read -p "Confirmer extinction ? (y/n) " c
     [ "$c" = "y" ] && sudo shutdown now
 }
-
